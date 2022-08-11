@@ -7435,6 +7435,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
+simple-vue-camera@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/simple-vue-camera/-/simple-vue-camera-1.1.1.tgz#7162ae2406929013e6ae65b57d9ad76950b8e3ed"
+  integrity sha512-JIAc4NooMmcXCY4nsEux25HZNarXb9q+YnOWCugcreaRP5iG9iXCx9ppGNPr1rn2s5OMz2kTUk7OI9tN5tBLjA==
+
 sirv@^1.0.7:
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/sirv/-/sirv-1.0.19.tgz#1d73979b38c7fe91fcba49c85280daa9c2363b49"
