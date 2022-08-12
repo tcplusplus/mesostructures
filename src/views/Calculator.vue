@@ -9,11 +9,13 @@
 import { Dataset } from '@/classes/dataset';
 import { fromGrayCode } from '@/classes/graycodes';
 import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'MesoCalculator',
   setup() {
-    const dataset = Dataset.loadTestSet();
+    const store = useStore();
+    const dataset: Dataset = store.state.currentDataset;
     return {
       dataset,
     };
@@ -47,23 +49,28 @@ export default defineComponent({
       const context = this.output.getContext('2d');
       if (context === null) throw new Error('context is null');
       const output = context.getImageData(0, 0, this.output.width, this.output.height);
-      for (let level = 0; level < maxLevels; ++level) {
-        const main = await this.getImageData('horizontal', level, 'main');
-        const reverse = await this.getImageData('horizontal', level, 'reverse');
-        for (let i = 0; i < main.data.length; i += 4) {
-          const mainPixel = main.data[i] + main.data[i + 1] + main.data[i + 2];
-          const reversePixel = reverse.data[i] + reverse.data[i + 1] + reverse.data[i + 2];
-          const diff = mainPixel > reversePixel ? 1 : 0;
-          output.data[i] = output.data[i] * 2 + diff;
-          output.data[i + 1] = 0;
-          output.data[i + 2] = 0;
-          output.data[i + 3] = 255;
+      for (const direction of ['horizontal', 'vertical'] as const) {
+        for (let level = 0; level < maxLevels; ++level) {
+          const main = await this.getImageData(direction, level, 'main');
+          const reverse = await this.getImageData(direction, level, 'reverse');
+          for (let i = 0; i < main.data.length; i += 4) {
+            const mainPixel = main.data[i] + main.data[i + 1] + main.data[i + 2];
+            const reversePixel = reverse.data[i] + reverse.data[i + 1] + reverse.data[i + 2];
+            const diff = mainPixel > reversePixel ? 1 : 0;
+            if (direction === 'horizontal') output.data[i] = output.data[i] * 2 + diff;
+            if (direction === 'vertical') output.data[i + 1] = output.data[i + 1] * 2 + diff;
+            output.data[i + 3] = 255;
+          }
         }
       }
       for (let i = 0; i < output.data.length; i += 4) {
-        output.data[i] = fromGrayCode(output.data[i]) * 64;
+        const max = 2 ** maxLevels;
+        const x = (0.5 - fromGrayCode(output.data[i]) / max);
+        const y = (0.5 - fromGrayCode(output.data[i + 1]) / max);
+        output.data[i] = (x + 0.5) * 128;
+        output.data[i + 1] = (y + 0.5) * 128;
+        output.data[i + 2] = Math.sqrt(1 - (x * x) - (y * y)) * 255;
       }
-      console.log('output', { output });
       context.putImageData(output, 0, 0);
     },
   },
