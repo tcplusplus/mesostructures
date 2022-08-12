@@ -1,12 +1,14 @@
 <template>
    <div>
     <GrayCodes
+      v-if="recording"
       :direction="direction"
       :level="level"
       :inverse="inverse"
     />
     <img v-for="image in images" :src="image" :key="image" alt="recording" />
     <camera
+      v-if="recording"
       style="display: none;"
       ref="camera"
       :resolution="{ width: 480, height: 640 }"
@@ -32,6 +34,7 @@ export default defineComponent({
     level: 1,
     direction: 'horizontal',
     inverse: false,
+    recording: false,
   }),
   setup() {
     const images = ref<string[]>([]);
@@ -56,6 +59,7 @@ export default defineComponent({
   },
   methods: {
     async record() {
+      this.recording = true;
       await sleep(3000);
       for (const direction of ['horizontal', 'vertical']) {
         this.direction = direction;
@@ -67,6 +71,7 @@ export default defineComponent({
           }
         }
       }
+      this.recording = false;
     },
   },
 });
