@@ -34,7 +34,7 @@ export default defineComponent({
     GrayCodes,
   },
   data: () => ({
-    maxLevel: 4,
+    maxLevel: 6,
     level: 1,
     direction: 'horizontal',
     inverse: false,
