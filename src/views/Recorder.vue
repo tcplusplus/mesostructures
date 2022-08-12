@@ -64,7 +64,7 @@ export default defineComponent({
       await sleep(3000);
       for (const direction of ['horizontal', 'vertical']) {
         this.direction = direction;
-        for (let level = 1; level <= 6; ++level) {
+        for (let level = 1; level <= 4; ++level) {
           this.level = level;
           for (const inverse of [false, true]) {
             this.inverse = inverse;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 export const toGrayCode = (n: number) => {
   if (n < 0) {
     throw new RangeError('cannot convert negative numbers to gray code');

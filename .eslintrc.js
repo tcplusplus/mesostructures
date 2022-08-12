@@ -18,6 +18,8 @@ module.exports = {
     'no-restricted-syntax': 'off',
     'no-await-in-loop': 'off',
     'import/prefer-default-export': 'off',
+    'max-classes-per-file': 'off',
+    'global-require': 'off',
   },
   overrides: [
     {
