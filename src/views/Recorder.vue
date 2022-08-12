@@ -11,6 +11,7 @@
       v-if="recording"
       style="display: none;"
       ref="camera"
+      facingMode="user"
       :resolution="{ width: 480, height: 640 }"
       autoplay
     />
