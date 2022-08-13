@@ -1,5 +1,8 @@
 <template>
-   <div>
+  <div class="recorder">
+    <p v-if="countdown > 0">
+      Start in {{ countdown }} seconds
+    </p>
     <GrayCodes
       v-if="recording"
       style="height: 100rem; position: relative;"
@@ -7,7 +10,6 @@
       :level="level + 1"
       :inverse="inverse"
     />
-    {{ counter }}
     <camera
       style="display: none;"
       ref="camera"
@@ -15,6 +17,7 @@
       :resolution="{ width: 480, height: 640 }"
       autoplay
     />
+    <div style="display: none;">{{ counter }}</div>
    </div>
 </template>
 
@@ -34,8 +37,9 @@ export default defineComponent({
     GrayCodes,
   },
   data: () => ({
+    countdown: 0,
     maxLevel: 6,
-    level: 1,
+    level: -1,
     direction: 'horizontal',
     inverse: false,
     recording: false,
@@ -59,12 +63,21 @@ export default defineComponent({
     };
   },
   async mounted() {
+    for (let i = 5; i >= 0; --i) {
+      this.countdown = i;
+      await sleep(1000);
+    }
     await this.record();
   },
   methods: {
-    async record() {
-      await sleep(3000);
+    setScreenToWhite() {
+      this.level = -1;
+      this.inverse = true;
       this.recording = true;
+    },
+    async record() {
+      this.setScreenToWhite();
+      await sleep(3000);
       for (const direction of ['horizontal', 'vertical'] as const) {
         this.direction = direction;
         for (let level = 0; level < this.dataset.numLevels; ++level) {
@@ -88,3 +101,11 @@ export default defineComponent({
 });
 
 </script>
+
+<style lang="scss">
+.recorder {
+  p {
+    font-size: 3rem;
+  }
+}
+</style>

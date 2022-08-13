@@ -25,7 +25,7 @@ export default defineComponent({
     level: {
       type: Number,
       required: true,
-      validator: (value: number) => value > 0 && value <= 8,
+      validator: (value: number) => value >= 0 && value <= 8,
     },
     inverse: {
       type: Boolean,

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button type="button" class="btn btn-success" @click="goHome">Home</button>
     <canvas ref="input" height="640" width="480" v-show="false" />
     <canvas ref="output" height="640" width="480" />
   </div>
@@ -32,6 +33,9 @@ export default defineComponent({
     },
   },
   methods: {
+    goHome() {
+      this.$router.push({ name: 'home' });
+    },
     getImageData(direction: 'horizontal'|'vertical', level: number, type: 'main'|'reverse'): Promise<ImageData> {
       return new Promise((resolve) => {
         const context = this.canvas.getContext('2d');

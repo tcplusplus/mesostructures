@@ -15,7 +15,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/calculator',
     name: 'calculator',
-    component: () => import(/* webpackChunkName: "recorder" */ '../views/Calculator.vue'),
+    component: () => import(/* webpackChunkName: "calculator" */ '../views/Calculator.vue'),
+  },
+  {
+    path: '/results',
+    name: 'results',
+    component: () => import(/* webpackChunkName: "results" */ '../views/Results.vue'),
   },
 ];
 

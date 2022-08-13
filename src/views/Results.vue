@@ -21,23 +21,8 @@
       </div>
     </nav>
     <main>
-      <p>
-        This is a mobile implementation of the
-        <a href="https://documentserver.uhasselt.be/bitstream/1942/10524/1/3465.pdf">Normal Map Aquisition paper of Yannick et al.</a>
-        Everything runs locally on your device.
-      </p>
-
-      <p>To scan a mesostructure:
-        <ul>
-          <li>Set your screen brightness to maximum</li>
-          <li>Click <a href="/recorder">record</a> button</li>
-          <li>Give the app permissions to access your camera</li>
-          <li>Hold your mobile phone with the screen down around
-            10cm above the surface you want to scan</li>
-          <li>Wait until you hear a beap</li>
-          <li>Wait a couple of seconds until the result appears on the screen</li>
-        </ul>
-      </p>
+      <h3>Results</h3>
+      <img v-for="img in results" :src="img" :key="img" alt="result" />
     </main>
 
   </div>
@@ -48,6 +33,13 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'HomeView',
+  computed: {
+    results() {
+      return [
+        require('@/assets/results/result1.png'),
+      ];
+    },
+  },
 });
 </script>
 
@@ -69,6 +61,10 @@ export default defineComponent({
 
     a {
       color: white;
+    }
+
+    img {
+      width: 100%;
     }
   }
 }
