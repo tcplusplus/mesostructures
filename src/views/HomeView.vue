@@ -38,6 +38,17 @@
           <li>Wait a couple of seconds until the result appears on the screen</li>
         </ul>
       </p>
+
+      <p>
+        Go to github repo:
+        <a href="https://github.com/tcplusplus/mesostructures">
+          <img
+            width="24px"
+            src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+            alt="github"
+          />
+        </a>
+      </p>
     </main>
 
   </div>

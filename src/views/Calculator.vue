@@ -1,6 +1,11 @@
 <template>
-  <div>
+  <div class="calculator">
     <button type="button" class="btn btn-success" @click="goHome">Home</button>
+    <br />
+    <br />
+    <div v-if="calculating" class="loader">
+      <Loader>Calculating Normalmap</Loader>
+    </div>
     <canvas ref="input" height="640" width="480" v-show="false" />
     <canvas ref="output" height="640" width="480" />
   </div>
@@ -9,16 +14,22 @@
 <script lang="ts">
 import { Dataset } from '@/classes/dataset';
 import { fromGrayCode } from '@/classes/graycodes';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
+import Loader from '@/components/Loader.vue';
 
 export default defineComponent({
   name: 'MesoCalculator',
+  components: {
+    Loader,
+  },
   setup() {
     const store = useStore();
+    const calculating = ref(true);
     const dataset: Dataset = store.state.currentDataset;
     return {
       dataset,
+      calculating,
     };
   },
   async mounted() {
@@ -49,6 +60,7 @@ export default defineComponent({
       });
     },
     async calculate() {
+      this.calculating = true;
       const maxLevels = this.dataset.numLevels;
       const context = this.output.getContext('2d');
       if (context === null) throw new Error('context is null');
@@ -76,8 +88,23 @@ export default defineComponent({
         output.data[i + 2] = Math.sqrt(1 - (x * x) - (y * y)) * 255;
       }
       context.putImageData(output, 0, 0);
+      this.calculating = false;
     },
   },
 });
 
 </script>
+
+<style lang="scss">
+.calculator {
+  margin-top: 1rem;
+
+  .loader {
+    position: fixed;
+    left: 45%;
+    width: 10%;
+    top: 30%;
+  }
+}
+
+</style>

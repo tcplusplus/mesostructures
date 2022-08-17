@@ -93,6 +93,9 @@ export default defineComponent({
           }
         }
       }
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const audio = new Audio(require('@/assets/beep.wav'));
+      audio.play();
       this.store.dispatch('updateDataset', this.dataset);
       this.$router.push('calculator');
       this.recording = false;
