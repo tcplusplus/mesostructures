@@ -3,19 +3,18 @@
     <p v-if="countdown > 0">
       Start in {{ countdown }} seconds
     </p>
+    <camera
+      ref="camera"
+      facingMode="user"
+      :resolution="{ width: 480, height: 640 }"
+      autoplay
+    />
     <GrayCodes
       v-if="recording"
       style="height: 100rem; position: relative;"
       :direction="direction"
       :level="level + 1"
       :inverse="inverse"
-    />
-    <camera
-      style="display: none;"
-      ref="camera"
-      facingMode="user"
-      :resolution="{ width: 480, height: 640 }"
-      autoplay
     />
     <div style="display: none;">{{ counter }}</div>
    </div>
@@ -109,6 +108,14 @@ export default defineComponent({
 .recorder {
   p {
     font-size: 3rem;
+  }
+
+  #camera-container {
+    position: fixed;
+    bottom: 0px;
+    width: 10%;
+    right: 0px;
+    height: 10%;
   }
 }
 </style>
