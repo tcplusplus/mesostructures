@@ -3,7 +3,7 @@
     <p v-if="countdown > 0">
       Start in {{ countdown }} seconds
     </p>
-    <camera
+    <Camera
       ref="camera"
       facingMode="user"
       :resolution="{ width: 480, height: 640 }"
@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import GrayCodes from '@/components/GrayCodes.vue';
-import Camera from 'simple-vue-camera';
+import Camera from '@/components/Camera.vue';
 import { sleep } from '@/classes/sleep';
 import { Dataset } from '@/classes/dataset';
 import { useStore } from 'vuex';
@@ -34,6 +34,7 @@ export default defineComponent({
   name: 'RecorderView',
   components: {
     GrayCodes,
+    Camera,
   },
   data: () => ({
     countdown: 0,
